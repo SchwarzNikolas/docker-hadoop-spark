@@ -7,7 +7,7 @@ This is it: a Docker multi-container environment with Hadoop (HDFS), Spark and J
 
 To deploy an the HDFS-Spark cluster, run:
 ```
-  docker-compose up
+docker compose up
 ```
 
 `docker-compose` creates a docker network that can be found by running `docker network list`, e.g. `docker-hadoop-spark-default`.
@@ -27,24 +27,24 @@ Run `docker network inspect` on the network (e.g. `docker-hadoop-spark-default`)
 
 Copy breweries.csv to the namenode.
 ```
-  docker cp breweries.csv namenode:breweries.csv
+docker cp breweries.csv namenode:breweries.csv
 ```
 
 Go to the bash shell on the namenode with that same Container ID of the namenode.
 ```
-  docker exec -it namenode bash
+docker exec -it namenode bash
 ```
 
 
 Create a HDFS directory /data//openbeer/breweries.
 
 ```
-  hdfs dfs -mkdir -p /data/openbeer/breweries
+hdfs dfs -mkdir -p /data/openbeer/breweries
 ```
 
 Copy breweries.csv to HDFS:
 ```
-  hdfs dfs -put breweries.csv /data/openbeer/breweries/breweries.csv
+hdfs dfs -put breweries.csv /data/openbeer/breweries/breweries.csv
 ```
 
 
@@ -62,16 +62,16 @@ Go to http://<dockerhadoop_IP_address>:8080 or http://localhost:8080/ on your Do
 
 Go to the command line of the Spark master and start PySpark.
 ```
-  docker exec -it spark-master bash
+docker exec -it spark-master bash
 
-  /spark/bin/pyspark --master spark://spark-master:7077
+/spark/bin/pyspark --master spark://spark-master:7077
 ```
 
 Load breweries.csv from HDFS.
 ```
-  brewfile = spark.read.csv("hdfs://namenode:9000/data/openbeer/breweries/breweries.csv")
+brewfile = spark.read.csv("hdfs://namenode:9000/data/openbeer/breweries/breweries.csv")
   
-  brewfile.show()
+brewfile.show()
 +----+--------------------+-------------+-----+---+
 | _c0|                 _c1|          _c2|  _c3|_c4|
 +----+--------------------+-------------+-----+---+
@@ -105,16 +105,16 @@ only showing top 20 rows
 
 The configuration parameters can be specified in the hadoop.env file or as environmental variables for specific services (e.g. namenode, datanode etc.):
 ```
-  CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+CORE_CONF_fs_defaultFS=hdfs://namenode:8020
 ```
 
 CORE_CONF corresponds to core-site.xml. fs_defaultFS=hdfs://namenode:8020 will be transformed into:
 ```
-  <property><name>fs.defaultFS</name><value>hdfs://namenode:8020</value></property>
+<property><name>fs.defaultFS</name><value>hdfs://namenode:8020</value></property>
 ```
 To define dash inside a configuration parameter, use triple underscore, such as YARN_CONF_yarn_log___aggregation___enable=true (yarn-site.xml):
 ```
-  <property><name>yarn.log-aggregation-enable</name><value>true</value></property>
+<property><name>yarn.log-aggregation-enable</name><value>true</value></property>
 ```
 
 The available configurations are:
