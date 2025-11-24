@@ -21,7 +21,7 @@ Run `docker network inspect` on the network (e.g. `docker-hadoop-spark-default`)
 * Resource manager: http://<dockerhadoop_IP_address>:8088/
 * Spark master: http://<dockerhadoop_IP_address>:8080/
 * Spark worker: http://<dockerhadoop_IP_address>:8081/
-
+* Jupyter notebook: http://<dockerhadoop_IP_address>:8888/
 
 ## Quick Start HDFS
 
