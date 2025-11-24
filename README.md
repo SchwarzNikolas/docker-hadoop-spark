@@ -1,6 +1,6 @@
-# Docker multi-container environment with Hadoop and Spark
+# Docker multi-container environment with Hadoop, Spark and Jupyter Notebook
 
-This is it: a Docker multi-container environment with Hadoop (HDFS) and Spark. 
+This is it: a Docker multi-container environment with Hadoop (HDFS), Spark and Jupyter Notebook. 
 
 
 ## Quick Start
@@ -48,9 +48,17 @@ Copy breweries.csv to HDFS:
 ```
 
 
-## Quick Start Spark (PySpark)
+## Quick Start Jupyter Notebook
+To start using Jupyter Notebook go to http://<dockerhadoop_IP_address>:8888 or http://localhost:8888/ on your Docker host.
 
-Go to http://<dockerhadoop_IP_address>:8080 or http://localhost:8080/ on your Docker host (laptop) to see the status of the Spark master.
+Navigate to the work folder to create a new jupyter notebook or use the example file that is located within that folder.
+
+You should now be able to connect to the Spark master via pyspark.
+
+## Quick Start Spark (PySpark)
+Alternatively to using Jupyter Notebook, pyspark can be executed directly in the command line of the Spark master.
+
+Go to http://<dockerhadoop_IP_address>:8080 or http://localhost:8080/ on your Docker host to see the status of the Spark master.
 
 Go to the command line of the Spark master and start PySpark.
 ```
@@ -116,5 +124,3 @@ The available configurations are:
 * /etc/hadoop/httpfs-site.xml HTTPFS_CONF
 * /etc/hadoop/kms-site.xml KMS_CONF
 * /etc/hadoop/mapred-site.xml  MAPRED_CONF
-
-If you need to extend some other configuration file, refer to base/entrypoint.sh bash script.
