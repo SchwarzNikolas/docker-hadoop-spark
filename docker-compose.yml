@@ -84,7 +84,7 @@ services:
       - SPARK_WORKER_CORES=8
 
   jupyter:
-    build: .
+    image: ghcr.io/schwarznikolas/docker-hadoop-spark/spark-jupyter:latest
     container_name: jupyter
     depends_on:
       - spark-master
